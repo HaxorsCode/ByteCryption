@@ -6,8 +6,8 @@ def encrypt(raw: str, key: str='hanz'):
 	stage_2 = ''
 	stage_3 = ''
 
-	for char in raw:
-		char = chr(ord(char) + ord(key[raw.index(char) % len(key) - 1]))
+	for i, char in enumerate(raw):
+		char = chr(ord(char) + ord(key[i % len(key) - 1]))
 		stage_1 += char
 
 	return 'e6' + base64.b64encode(stage_1.encode()).decode()
@@ -16,8 +16,8 @@ def decrypt(encrypted: str, key: str='hanz'):
 	encrypted = base64.b64decode(encrypted.encode('utf8')).decode()
 	stage_1 = ''
 
-	for char in encrypted:
-		char = chr(ord(char) - ord(key[encrypted.index(char) % len(key) - 1]))
+	for i, char in enumerate(encrypted):
+		char = chr(ord(char) - ord(key[i % len(key) - 1]))
 		stage_1 += char
 
 	return stage_1
